@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 640680305173-p40kers06pilb8p1fekuoles2pebl4nn.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile,email
+            
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web.client: DEBUG
+    org.springframework.http: DEBUG

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h1>Welcome, please log in</h1>
+
+    <!-- Local username/password login -->
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label>Username:</label>
+            <input type="text" name="username" />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" />
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <hr/>
+
+    <!-- OAuth2 logins -->
+    <div>
+        <a th:href="@{/oauth2/authorization/google}">Login with Google</a>
+    </div>
+    
+</body>
+</html>
