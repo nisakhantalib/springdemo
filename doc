@@ -1,0 +1,28 @@
+
+// ==================== API ENDPOINTS DOCUMENTATION ====================
+/*
+API ENDPOINTS:
+
+USER MANAGEMENT:
+- POST   /api/users           - Add new user (username, email, password)
+- GET    /api/users           - Display list of all users
+- GET    /api/users/{id}      - Get user by ID
+- PUT    /api/users/{id}      - Update user
+- DELETE /api/users/{id}      - Remove user from list
+
+TASK MANAGEMENT:
+- POST   /api/tasks           - Add new task (title, description, status, assignedUserId)
+- GET    /api/tasks           - Display all tasks
+- GET    /api/tasks/{id}      - Display task details including assigned user
+- GET    /api/tasks/status/{status} - Filter tasks by status (PENDING, IN_PROGRESS, COMPLETED)
+- PUT    /api/tasks/{id}      - Update task
+- PUT    /api/tasks/{taskId}/assign/{userId} - Assign task to user
+- DELETE /api/tasks/{id}      - Remove task from list
+- GET    /api/tasks/user/{userId} - Get tasks by user
+
+H2 CONSOLE:
+- http://localhost:8080/h2-console
+- JDBC URL: jdbc:h2:mem:testdb
+- Username: sa
+- Password: (leave empty)
+*/
