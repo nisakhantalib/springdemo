@@ -1,7 +1,33 @@
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        secure: false
 
 spring:
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task_db
+    username: task_user
+    password: task_password1234
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # options: none, validate, update, create, create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   security:
     oauth2:
       client:
@@ -10,7 +36,6 @@ spring:
             client-id: 640680305173-p40kers06pilb8p1fekuoles2pebl4nn.apps.googleusercontent.com
             client-secret: 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
             scope: profile,email
-            
 
 logging:
   level:
