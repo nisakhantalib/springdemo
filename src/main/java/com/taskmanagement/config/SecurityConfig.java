@@ -20,7 +20,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home", "/login", "/oauth2/**", "/css/**", "/js/**", "/images/**", "/api/**").permitAll()
+                .requestMatchers("/", "/home", "/login", "/css/**", "/js/**", "/images/**", "/api/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll() // For H2 console if using
                 .anyRequest().authenticated()
             )
@@ -28,10 +28,6 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .defaultSuccessUrl("/users", true)
                 .permitAll()
-            )
-            .oauth2Login(oauth -> oauth
-                .loginPage("/login")
-                .defaultSuccessUrl("/users", true)
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
