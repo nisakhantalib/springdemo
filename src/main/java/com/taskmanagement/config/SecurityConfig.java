@@ -52,16 +52,16 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
             .username("user")
-            .password(passwordEncoder().encode("password"))
+            .password(passwordEncoder().encode("zemanumnesade@99"))
             .roles("USER")
             .build();
         
-        UserDetails admin = User.builder()
-            .username("admin")
-            .password(passwordEncoder().encode("admin"))
-            .roles("ADMIN", "USER")
-            .build();
+        // UserDetails admin = User.builder()
+        //     .username("admin")
+        //     .password(passwordEncoder().encode("admin"))
+        //     .roles("ADMIN", "USER")
+        //     .build();
 
-        return new InMemoryUserDetailsManager(user, admin);
+        return new InMemoryUserDetailsManager(user);
     }
 }
