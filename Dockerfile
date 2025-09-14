@@ -1,14 +1,21 @@
-# Use lightweight JDK base image
+# ---- Build stage ----
+FROM maven:3.9.6-eclipse-temurin-21 AS build
+
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+
+# Package the app (skip tests to speed up build)
+RUN mvn clean package -DskipTests
+
+# ---- Run stage ----
 FROM openjdk:21-jdk-slim
 
-# Set app directory
 WORKDIR /app
 
-# Copy JAR from target (after mvn/gradle build)
-COPY target/*.jar app.jar
+# Copy the built JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
 
-# Expose port (Render provides PORT env automatically)
 EXPOSE 8080
 
-# Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
