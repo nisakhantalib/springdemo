@@ -42,7 +42,7 @@ public class WebController {
     	
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("newUser", new UserDTO());
-        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("currentUser", "Guest");
         model.addAttribute("activeTab", "users"); // Add this for nav highlighting
         return "users";
     }
@@ -87,7 +87,7 @@ public class WebController {
             model.addAttribute("users", userService.getAllUsers());
             model.addAttribute("newTask", new Task());
             model.addAttribute("statuses", TaskStatus.values());
-            model.addAttribute("currentUser", userDetails != null ? userDetails.getUsername() : "Guest");
+            model.addAttribute("currentUser", "Guest");
             model.addAttribute("activeTab", "tasks"); // Add this for nav highlighting
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Error loading tasks: " + e.getMessage());
