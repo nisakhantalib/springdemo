@@ -14,20 +14,7 @@ public class SecurityConfigDev {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(auth -> auth
-                 // ✅ allow access to /users without login
-                .requestMatchers("/users", "/tasks", "/users/**", "/tasks/**").permitAll()
-                // also allow static resources like css/js/images
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
-                // everything else requires login
-                .anyRequest().authenticated())
-            .formLogin(form -> form
-                .loginPage("/login")  // your custom login page
-                .permitAll()
-            )
-            .logout(logout -> logout.permitAll());
-
+       http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
 
         return http.build();
     }
