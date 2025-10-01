@@ -38,13 +38,7 @@ public class WebController {
     
     // User Management Page
     @GetMapping("/users")
-    public String users(Model model, @AuthenticationPrincipal UserDetails userDetails,
-    		@AuthenticationPrincipal OAuth2User oauth2User) {
-    	String currentUser="Guest";
-    	if(userDetails!=null) {
-    		currentUser= userDetails.getUsername(); }
-    	else if(oauth2User!=null) {
-    		currentUser=oauth2User.getAttribute("name");}
+    public String users(Model model) {
     	
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("newUser", new UserDTO());
@@ -80,8 +74,7 @@ public class WebController {
     // Task Management Page
     @GetMapping("/tasks")
     public String tasks(@RequestParam(required = false) String status, 
-                       Model model,
-                       @AuthenticationPrincipal UserDetails userDetails) {
+                       Model model) {
         try {
             if (status != null && !status.isEmpty()) {
                 model.addAttribute("tasks", taskService.getTasksByStatus(TaskStatus.valueOf(status)));
