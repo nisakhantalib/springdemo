@@ -2,6 +2,7 @@ package com.taskmanagement.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -14,14 +15,14 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+@Profile("prod")  // Only active when 'spring.profiles.active=prod'
+public class SecurityConfigProd {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home", "/login", "/css/**", "/js/**", "/images/**", "/api/**").permitAll()
-                .requestMatchers("/h2-console/**").permitAll() // For H2 console if using
+                .requestMatchers("/", "/home", "/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -34,10 +35,10 @@ public class SecurityConfig {
                 .permitAll()
             )
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/**") // Disable CSRF for api
+                .ignoringRequestMatchers("/api/**")
             )
             .headers(headers -> headers
-                .frameOptions(frame -> frame.sameOrigin()) // Allow H2 console in frames
+                .frameOptions(frame -> frame.sameOrigin())
             );
 
         return http.build();
@@ -52,15 +53,9 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
             .username("user")
-            .password(passwordEncoder().encode("zemanumnesade@99"))
+            .password(passwordEncoder().encode("password123"))
             .roles("USER")
             .build();
-        
-        // UserDetails admin = User.builder()
-        //     .username("admin")
-        //     .password(passwordEncoder().encode("admin"))
-        //     .roles("ADMIN", "USER")
-        //     .build();
 
         return new InMemoryUserDetailsManager(user);
     }
