@@ -16,12 +16,18 @@ public class SecurityConfigDev {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()   // Allow all requests
+                 // ✅ allow access to /users without login
+                .requestMatchers("/users", "/tasks", "/users/**", "/tasks/**").permitAll()
+                // also allow static resources like css/js/images
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                // everything else requires login
+                .anyRequest().authenticated())
+            .formLogin(form -> form
+                .loginPage("/login")  // your custom login page
+                .permitAll()
             )
-            .csrf(csrf -> csrf.disable())  // Disable CSRF for simplicity
-            .headers(headers -> headers
-                .frameOptions(frame -> frame.sameOrigin()) // H2 console support
-            );
+            .logout(logout -> logout.permitAll());
+
 
         return http.build();
     }
